@@ -2,7 +2,7 @@
  into the DOM (onto the page). */
 
 $(document).ready(function() {
-  /* find all of the elements on the page that have  data-meow-button attribute
+  /* find all of the elements on the page that have data-meow-button attribute
   and listen for the submit event. when submit occurs run anonymous function
   passing in the submit event itself as an argument. prevent default where
   default would cause the page to refresh*/
@@ -22,7 +22,27 @@ $(document).ready(function() {
     $.ajax({
       type: "POST",
       url: $form.attr('action'),
-      dataType: "json"
+      dataType: "json",
+      success: function(meow) {
+        // create the String version of the form action
+        action = '/posts/' + meow.post_id + '/meows/' + meow.id;
+
+        // Create the new form
+        $newForm = $('<form>').attr({
+          action: action,
+          method: 'delete',
+          'data-meow-button': 'delete'
+        });
+
+        // Create the new submit input
+        $meowButton = $('<input>').attr({type: 'submit', value: 'Remove Meow'});
+
+        // Append the new submit input to the new form
+        $newForm.append($meowButton);
+
+        // Replace the old create form with the new remove form
+        $form.replaceWith($newForm)
+      }
     });
   });
 });
