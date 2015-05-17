@@ -19,6 +19,17 @@ class MeowsController < ApplicationController
 
   def destroy
     current_user.meows.destroy(params[:id])
-    redirect_to :back, notice: "All evidence of your meowing has been destroyed!"
+
+    respond_to do |format|
+      # Respond the same way we were before if the request format is html
+      format.html do
+        flash[:notice] = "All evidence of your meowing has been destroyed!"
+        redirect_to :back
+      end
+
+      # Respond with a "204 No Content" to signify that the request has been
+      # fulfilled
+      format.json { head :no_content }
+    end
   end
 end

@@ -16,7 +16,7 @@ $(document).ready(function() {
     $form = $(event.currentTarget);
 
     /* now that form is stored in variable we can send an ajax request in the
-    background using it's attributes using jQuer's $.ajax() function. This will
+    background using it's attributes using jQuery's $.ajax() function. This will
     cause a POST request to be sent to /posts/:post_id/meows, which maps our
     meows#create action  */
     $.ajax({
@@ -42,6 +42,21 @@ $(document).ready(function() {
 
         // Replace the old create form with the new remove form
         $form.replaceWith($newForm)
+      }
+    });
+  });
+
+  $('[data-meow-button="delete"]').on('submit', function(event) {
+    event.preventDefault();
+
+    $form = $(event.currentTarget);
+
+    $.ajax({
+      type: "DELETE",
+      url: $form.attr('action'),
+      dataType: "json",
+      success: function() {
+        alert("MEOW DELETED!");
       }
     });
   });
