@@ -6,7 +6,7 @@ $(document).ready(function() {
   and listen for the submit event. when submit occurs run anonymous function
   passing in the submit event itself as an argument. prevent default where
   default would cause the page to refresh*/
-  $('[data-meow-button="create"]').on('submit', function(event) {
+  $('[data-post-id]').on('submit', '[data-meow-button="create"]', function(event) {
     event.preventDefault();
     /* event.currentTarget is used to find the element that is the target of
     the event that is passed into the function. we wrap it in $() so that we get
@@ -46,7 +46,7 @@ $(document).ready(function() {
     });
   });
 
-  $('[data-meow-button="delete"]').on('submit', function(event) {
+  $('[data-post-id]').on('submit', '[data-meow-button="delete"]', function(event) {
     event.preventDefault();
 
     $form = $(event.currentTarget);
